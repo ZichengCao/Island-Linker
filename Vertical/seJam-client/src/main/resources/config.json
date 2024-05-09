@@ -1,0 +1,11 @@
+[
+    {
+            "address": "10.10.65.143:1991", "schema": "schema2_8",
+            "table": {"name": "orders","attributes": ["o_orderkey", "o_custkey"]}
+    },
+    {
+            "address": "10.10.65.143:1992", "schema": "schema2_8",
+            "table": {"name": "lineitem","attributes": ["l_orderkey", "l_quantity"]}
+    }
+    ]
+    

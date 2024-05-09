@@ -1,0 +1,112 @@
+syntax = "proto2";
+package federate;
+
+option java_package = "com.ada.federate.rpc";
+option java_outer_classname = "RPCCommon";
+
+message PublicQueryMessage{
+  required SQLExpression groupExpression = 1;
+  required SQLExpression aggregateExpression = 2;
+  required FuncType funcType = 3;
+}
+// TODO: remove SQLExpression
+message SQLExpression{
+  optional string aggregation = 1;
+  optional FuncType funcType = 2;
+  optional string dimension = 3;
+  //  optional string filters = 3;
+  optional string joinField = 4;
+  required string tableName = 5;
+  // fields = aggregations + dimensions + joinFiled
+  //  repeated string fields = 6;
+  required string targetSchema = 7;
+  required bool hashFlag = 9;
+  optional int64 uuid = 8;
+}
+
+message Status{
+  required bool code = 1;
+  optional string message = 2;
+  optional int64 timestamp = 3;
+  //  optional MyTimeframe timeframe = 4;
+}
+
+message FinalResult{
+  repeated string key = 1;
+  repeated string val = 2;
+  optional Status status = 3;
+}
+
+message AggregatedIR{
+  repeated string key = 1;
+  repeated string val = 2;
+}
+
+message RawIR{
+  repeated string id = 1;
+  repeated string val = 2;
+  optional string uuid = 3;
+  optional string publicKey = 4;
+}
+
+message GroupIR{
+  repeated string key = 1;
+  repeated IDs id = 2;
+}
+
+message IDs{
+  repeated string id = 1;
+}
+
+
+message QueryResult{
+  required Table table = 1;
+  optional Status status = 2;
+}
+
+message Table{
+  repeated ElementType type = 1;
+  repeated Row row = 2;
+  repeated string name = 3;
+}
+
+// for storage
+message Row{
+  repeated Cell cell = 1;
+}
+
+// for calc
+message Column{
+  required ElementType type = 1;
+  required string name = 2;
+  repeated int32 intVal = 3;
+  repeated string strVal = 4;
+  repeated float floatVal = 5;
+}
+
+
+message Cell{
+  optional string val = 1;
+}
+
+
+//message MyTimeframe{
+//  required string itemName = 1;
+//  required int32 interval = 2;
+//}
+
+enum ElementType{
+  INTEGER = 0;
+  STRING = 1;
+  FLOAT = 2;
+}
+
+enum FuncType{
+  NONE = 0;
+  SUM = 1;
+  COUNT = 2;
+  MAX = 3;
+  MIN = 4;
+  AVG = 5;
+  MEDIAN = 6;
+}

@@ -1,0 +1,8 @@
+{
+    "name": "postgresql",
+    "driver": "org.postgresql.Driver",
+    "user": "postgres",
+    "password": "123465",
+    "url": "jdbc:postgresql://127.0.0.1:5432/vertical",
+    "serverPort": 9991
+}

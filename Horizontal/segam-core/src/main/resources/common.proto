@@ -1,0 +1,59 @@
+syntax = "proto2";
+package federate;
+
+option java_package = "com.ada.federate.rpc";
+option java_outer_classname = "RPCCommon";
+
+
+message SQLMessage{
+  required int64 uuid = 1;
+  repeated string sql = 2;
+}
+
+// TODO: remove SQLExpression
+message SQLExpression{
+  required string aggField = 1;
+  optional string filters = 2;
+  repeated string dimensions = 3;
+  repeated string alias = 11;
+  required string tableName = 4;
+  required string targetSchema = 5;
+  repeated string order = 6;
+  optional string dir = 7;
+  optional int32 limit = 8;
+  optional int32 offset = 9;
+  optional int64 uuid = 10;
+}
+
+message Status{
+  required bool code = 1;
+  optional string message = 2;
+  optional MyTimeframe timeframe = 4;
+}
+
+message RPCResult{
+  repeated string key = 1;
+  repeated int64 value = 2;
+  //  for median
+//  repeated ValueGroup valueGroup = 3;
+  optional Status status = 4;
+}
+
+message MyTimeframe{
+  required string itemName = 1;
+  required int32 interval = 2;
+}
+
+// Secret sharing message
+message SSMessage{
+  repeated int64 shareVal = 1;
+  repeated string key = 3;
+  optional int64 uuid = 2;
+  optional Status status = 4;
+  optional int32 from = 5;
+}
+
+enum ElementType{
+  numeric = 0;
+  text = 1;
+}

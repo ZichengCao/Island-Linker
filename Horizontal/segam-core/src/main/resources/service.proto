@@ -1,0 +1,104 @@
+syntax = "proto2";
+//import "google/protobuf/empty.proto";
+import "common.proto";
+package federate;
+option java_multiple_files = false;
+option java_package = "com.ada.federate.rpc";
+option java_outer_classname = "RPCService";
+
+service Segam {
+  // Initialization work: add client、
+  rpc rpcHello(HelloRequest)returns(Status);
+  rpc rpcPing(PingRequest)returns(Status);
+  rpc batchQuery (SQLMessage) returns(Status){}
+
+  rpc pubicQuery (SQLExpression) returns(RPCResult){}
+  rpc privateQuery (SQLExpression) returns(Status){}
+
+  rpc privateSetUnion(SetUnionRequest) returns(SetUnionResponse){}
+
+  rpc secureGroupByMax(GroupByMaxRequest)returns(Status){}
+  rpc secureGroupByMedian(GroupByMedianRequest)returns(Status){}
+  rpc secureGroupBySumSS(GroupBySumSSRequest)returns(SSMessage){}
+  rpc sendSharing(SSMessage)returns(Status){}
+  rpc command(CommandRequest)returns (CommandResponse){}
+}
+
+message SetUnionRequest{
+  required int64 uuid = 1;
+  required int32 round = 2;
+  required int32 index = 3;
+  repeated string key = 4;
+  repeated string keyIndex = 5;
+  //  required string dimension = 5;
+}
+
+message SetUnionResponse{
+  repeated string key = 1;
+  repeated string keyIndex = 2;
+  optional Status status = 3;
+}
+
+message CommandRequest{
+  // Command: 0 Given the UUID, indicates that the current query is completed, clearing the buffer.
+  // Command: 1 Retrieve results.
+  required int32 commandCode = 1;
+  optional int64 uuid = 2;
+}
+
+message CommandResponse{
+  optional string message = 1;
+  optional Status status = 2;
+}
+
+message GroupByMaxRequest{
+  required int64 uuid = 1;
+  repeated string key = 2;
+  repeated string keyIndex = 5;
+  repeated int32 keyList = 4;
+  repeated int64 threshold = 3;
+}
+
+message GroupByMedianRequest{
+  required int64 uuid = 1;
+  // Two rounds are required for even cases.
+  repeated bool evenFlag = 6;
+  repeated string key = 2;
+  repeated string keyIndex = 5;
+  repeated int32 keyList = 4;
+  repeated int64 threshold = 3;
+}
+
+message GroupBySumSSRequest{
+  repeated int32 publicKey = 1;
+  required int64 uuid = 2;
+  optional int32 round = 3;
+  repeated string key = 4;
+  repeated string keyList = 6;
+  //  optional string dimensionName = 3;
+  //  optional string valueName = 4;
+  // 0: sum, 1: max, 2: median
+  required int32 queryType = 5;
+}
+
+message GroupBySumSSResponse{
+  //  repeated string key = 1;
+  required SSMessage message = 2;
+  optional Status status = 3;
+}
+
+message HelloRequest{
+  repeated string endpoint = 1;
+  required int32 siloId = 2;
+  repeated Column column = 3;
+  optional string helloMessage = 4;
+}
+
+message PingRequest{
+  optional string msg = 1;
+}
+
+message Column{
+  repeated string fullKeyList = 1;
+  required string fieldName = 2;
+}

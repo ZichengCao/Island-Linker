@@ -1,0 +1,9 @@
+**/target
+.idea
+**/logs
+*.out
+*.iml
+archive
+**/*.jar
+**/pid
+**/*.log

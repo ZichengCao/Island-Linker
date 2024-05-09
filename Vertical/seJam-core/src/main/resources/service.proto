@@ -1,0 +1,42 @@
+syntax = "proto2";
+//import "google/protobuf/empty.proto";
+import "common.proto";
+package federate;
+//是否运行生成多个java文件
+option java_multiple_files = false;
+//定义包名
+option java_package = "com.ada.federate.rpc";
+//定义生成的类名称
+option java_outer_classname = "RPCService";
+
+service SeJam {
+  // Initialization work: add client、
+  rpc rpcHello(HelloRequest)returns(Status);
+  rpc pubicQuery(SQLExpression) returns(QueryResult){}
+
+  rpc groupByAggregationPlaintext(PublicQueryMessage) returns(FinalResult){}
+  rpc groupByPlaintext(SQLExpression) returns(GroupIR){}
+
+  rpc groupByADD(SQLExpression)returns(Status){}
+  rpc groupByORDER(SQLExpression)returns(GroupIR){}
+
+  rpc aggregationADD(SQLExpression)returns(FinalResult){}
+  rpc aggregationORDER(SQLExpression)returns(RawIR){}
+
+  rpc encryptedAggregateADD(RawIR)returns(AggregatedIR){}
+//  rpc encryptedAggregateORDER(AggregationIR)returns(AggregatedIR){}
+
+  rpc decryptAggregatedORDER(AggregatedIR)returns(FinalResult){}
+}
+
+
+message HelloRequest{
+  repeated string endpoint = 1;
+  required int32 siloId = 2;
+  required int32 round = 5;
+  required int32 index = 6;
+  // 密钥生成
+  //  required string p = 5;
+  //  required string g = 6;
+  //  required string publicKey = 7;
+}

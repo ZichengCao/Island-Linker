@@ -1,0 +1,14 @@
+{
+  "name": "postgresql",
+  "driver": "org.postgresql.Driver",
+  "user": "postgres",
+  "password": "123465",
+  "url": "jdbc:postgresql://127.0.0.1:56321/postgres",
+  "serverPort": 9991,
+  "tableName": "bank",
+  "attributes": [
+    "id",
+    "deposit",
+    "loan"
+  ]
+}

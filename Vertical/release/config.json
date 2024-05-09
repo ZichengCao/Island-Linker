@@ -1,0 +1,10 @@
+[
+{
+		"address": "192.168.58.128:8991", "schema": "public",
+		"table": {"name": "orders","attributes": ["o_orderkey", "o_custkey"]}
+},
+{
+		"address": "192.168.58.128:8992", "schema": "public",
+		"table": {"name": "lineitem","attributes": ["l_orderkey", "l_quantity"]}
+}
+]

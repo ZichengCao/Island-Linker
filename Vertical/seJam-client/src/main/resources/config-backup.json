@@ -1,0 +1,24 @@
+[
+  {
+    "address": "10.10.65.143:1991",
+    "schema": "schema2_10",
+    "table": {
+      "name": "customer",
+      "attributes": [
+        "c_custkey",
+        "c_nationkey"
+      ]
+    }
+  },
+  {
+    "address": "10.10.65.143:1992",
+    "schema": "schema2_10",
+    "table": {
+      "name": "orders",
+      "attributes": [
+        "o_custkey",
+        "o_totalprice"
+      ]
+    }
+  }
+]

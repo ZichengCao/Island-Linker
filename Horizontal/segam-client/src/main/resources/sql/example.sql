@@ -1,0 +1,1 @@
+select median(l_extendedprice) from lineitem group by l_orderkey;
